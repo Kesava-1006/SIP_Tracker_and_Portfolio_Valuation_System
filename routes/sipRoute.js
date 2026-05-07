@@ -1,6 +1,11 @@
 const express = require("express")
 const { verifyJWT } = require("../utility/authManager")
-const { insertSip, getSipById, processSip, getSipTransaction} = require("../controller/sipController")
+const {
+  insertSip,
+  getSipById,
+  processSip,
+  getSipTransaction,
+} = require("../controller/sipController")
 const router = express.Router()
 
 router.post("/sip", insertSip)
@@ -23,8 +28,9 @@ router.get(
   getSipById,
 )
 
-router.post("/sips/:sipId/process",
-    (request, response, next) => {
+router.post(
+  "/sips/:sipId/process",
+  (request, response, next) => {
     const token = request.headers.authorization
     try {
       const payload = verifyJWT(token)
@@ -41,8 +47,9 @@ router.post("/sips/:sipId/process",
   processSip,
 )
 
-router.get("/sips/:sipId/transactions",
-    (request, response, next) => {
+router.get(
+  "/sips/:sipId/transactions",
+  (request, response, next) => {
     const token = request.headers.authorization
     try {
       const payload = verifyJWT(token)

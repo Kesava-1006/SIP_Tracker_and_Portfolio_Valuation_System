@@ -1,5 +1,12 @@
-const {signJWT} = require('../utility/authManager');
-const {loginUser,insertNewInvestor,getAllInvestors,getInvestorById,getInvestorHoldings,getInvestorNetWorth} = require('../model/investorModel')
+const { signJWT } = require("../utility/authManager")
+const {
+  loginUser,
+  insertNewInvestor,
+  getAllInvestors,
+  getInvestorById,
+  getInvestorHoldings,
+  getInvestorNetWorth,
+} = require("../model/investorModel")
 
 const login = async (request, response) => {
   const { email, phone } = request.body
@@ -14,19 +21,31 @@ const login = async (request, response) => {
 
 const insertInvestor = async (request, response) => {
   const {
-        first_name,
-        middle_name,
-        last_name,
-        email,
-        phone,
-        dob,
-        gender,
-        pan,
-        aadhaar,
-        occupation,
-        created_at
-    } = req.body;
-  const result = await insertNewInvestor(first_name, middle_name, last_name, email, phone, dob, gender, pan, aadhaar, occupation, created_at)
+    first_name,
+    middle_name,
+    last_name,
+    email,
+    phone,
+    dob,
+    gender,
+    pan,
+    aadhaar,
+    occupation,
+    created_at,
+  } = req.body
+  const result = await insertNewInvestor(
+    first_name,
+    middle_name,
+    last_name,
+    email,
+    phone,
+    dob,
+    gender,
+    pan,
+    aadhaar,
+    occupation,
+    created_at,
+  )
   return response.json(result)
 }
 
@@ -74,5 +93,5 @@ module.exports = {
   allinvestors,
   investorById,
   investorHoldings,
-  investorNetworth
+  investorNetworth,
 }
