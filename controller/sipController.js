@@ -1,6 +1,6 @@
 const {signJWT} = require('../utility/authManager');
 
-const {insertNewSip,getSip} = require('../model/sipModel')
+const {insertNewSip,getSip,processNewSip,getSipTransactionByID} = require('../model/sipModel')
 
 const insertSip = async (request, response) => {
     const {
@@ -39,8 +39,17 @@ const processSip = async (request, response) => {
     return response.json(result);   
 }
 
+const getSipTransaction = async (request, response) => {
+    const sipId = request.params.sipId;
+
+    // Call the model function to get the SIP transactions
+    const result = await getSipTransactionByID(sipId);
+    return response.json(result);
+}
+
 module.exports = {
     insertSip,
     getSipById,
-    //processSip
+    processSip,
+    getSipTransaction
 }

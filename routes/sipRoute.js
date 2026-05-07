@@ -1,6 +1,6 @@
 const express = require("express")
 const { verifyJWT } = require("../utility/authManager")
-const { insertSip, getSipById, processSip} = require("../controller/sipController")
+const { insertSip, getSipById, processSip, getSipTransaction} = require("../controller/sipController")
 const router = express.Router()
 
 router.post("/sip", insertSip)
@@ -23,22 +23,40 @@ router.get(
   getSipById,
 )
 
-// router.post("/sips/:sipId/process",
-//     (request, response, next) => {
-//     const token = request.headers.authorization
-//     try {
-//       const payload = verifyJWT(token)
-//       if (payload) {
-//         next()
-//       } else {
-//         return response.json("Invalid Permissions")
-//       }
-//     } catch (e) {
-//       console.log(`Error verifying token: ${e}`)
-//       response.json(e)
-//     }
-//   },
-//   processSip,
-// )
+router.post("/sips/:sipId/process",
+    (request, response, next) => {
+    const token = request.headers.authorization
+    try {
+      const payload = verifyJWT(token)
+      if (payload) {
+        next()
+      } else {
+        return response.json("Invalid Permissions")
+      }
+    } catch (e) {
+      console.log(`Error verifying token: ${e}`)
+      response.json(e)
+    }
+  },
+  processSip,
+)
+
+router.get("/sips/:sipId/transactions",
+    (request, response, next) => {
+    const token = request.headers.authorization
+    try {
+      const payload = verifyJWT(token)
+      if (payload) {
+        next()
+      } else {
+        return response.json("Invalid Permissions")
+      }
+    } catch (e) {
+      console.log(`Error verifying token: ${e}`)
+      response.json(e)
+    }
+  },
+  getSipTransaction,
+)
 
 module.exports = router
